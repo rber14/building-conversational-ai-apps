@@ -45,6 +45,8 @@ Cortex search:
 cortex is optimized for low latency. 
   - cortex search takes hy brid search approach
   - Key word = excat phrases, semantic = helps us disocover when doc answers question but with diffrent works.
+            --- Semantic search goes beyond keyword matching. Instead of looking for exact words, it understands the meaning 
+                      of the query and retrieves results that are conceptually related.
   - coretez search than re ranks the result. 
   - user control
       - only users that have access to not only the srevice but the data
@@ -55,7 +57,10 @@ cortex is optimized for low latency.
 task
   - parse doc
   - extract full text and table, maintain doc struct, support lnagayges, accurate. Lay ON, Lay OFF - choose layout ON to keep structure of doc
-
+        --
+          Snowflake’s Layout Mode (part of Document AI) is designed to interpret the structure of unstructured documents. It doesn’t just read text; it understands layouts like tables, signatures, checkboxes, and paragraph formatting. 
+          This allows it to handle invoices, contracts, and even handwritten notes by extracting structured data from each type
+        --
   - split text, split long documents, preserve document structure, experiment with multiple chunking strategies.  Overlap, allows chunks to retain some infor of the next chunck.
 
 - you pay based on the size of your data, and meter by the second. 
@@ -67,7 +72,10 @@ LOADING unstructured data.
 - text splitting !
 
 - chunck size determined on experimentation. Overlap to ensure each chunck has context about previous
-
+        ---
+            In a retrieval‑augmented generation (RAG) model, documents are split into smaller pieces (“chunks”) before being embedded and stored in a vector database. 
+            When you ask a question, the system retrieves the most relevant chunks and feeds them into the language model.
+        ---
 
 READINGS
 Parse Document: 
@@ -90,6 +98,13 @@ RAG TRIAD = QUERY -> (context relevance : is the retrieved context relevant to t
 - LMS JUDGE
     - pass text and provide grading criteria
     - We can bench mark llm judge against human evaluation
+*
+Objective Accuracy Measurement
+
+    Ground‑truth metrics compare retrieved chunks and generated answers against a known correct dataset.
+            - This gives you a clear, unbiased measure of whether the system is returning the right information.
+            - Ground‑truth metrics allow you to compare different embedding models, chunk sizes, or re‑ranking strategies in a standardized way.
+            - You can run A/B tests and know which configuration is objectively better.
 
 READ:
 
@@ -103,4 +118,30 @@ https://www.snowflake.com/en/engineering-blog/eval-guided-optimization-llm-judge
   - set task
    - then complete steps in tasks 
           - make sure to resume the task, when created task start as susspended
+
+READING MATERIAL:
+
+STEAMS: https://docs.snowflake.com/en/user-guide/streams-intro
+TASKS: https://docs.snowflake.com/en/user-guide/tasks-intro
+
+Streamlit
+
+
+Overview:
+
+- ASK questions using unstructured data
+- Buit a RAG using cortex search
+- Imporve the accuracy of the RAG
+- Load unstructured data into snowflake stage
+  - special pdf formater tool
+- parsed documents to text
+- chunked the text for RAG
+- build a pipeline to keep data fresh
+- measure success of your RAG
+
+
+
+
+
+
 
