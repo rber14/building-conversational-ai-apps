@@ -1,1 +1,106 @@
+read : https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex
+
+RAG - RAG (Retrieval-Augmented Generation) in LLMs is a powerful technique that connects large language models to external, up-to-date knowledge sources, allowing them to provide more accurate, factual, and context-specific answers by retrieving relevant information before generating a response.
+
+Limitation - Context window size, recalling information (lost in the middle problem)
+
+text to SQL -
+
+- provide llm more context of tables, we need to generate accurate SQL
+
+Search:
+
+Key word search - find text that contains specific terms.
+                - Levarge sparse vector
+                - each element in vector represents a unique word.
+
+Similarity search - sparse and dense vectors 
+                    - can combine both search types.
+                  - vector operations are reletivly cheap.
+re ranking - improves search quality. order result based on similarity.
+
+text to SQL - need to know and understand the data. 
+            - Solve range of problems like: Interpret question, understand schemas, and generate correct sql.
+            - Understand how to best answer with the information available.
+            - Question Understanding.
+                - Handle ambiguity.
+            - Mapping to the database. Schema comprehension. 
+                - once model understand that is being ask and where to get the information. The model needs to generate accurate sql.
+            - Query formulation and validation.
+            - 
+
+Dashboards - only display what they are built to display.
+  - Analyst could become very busy, but building a dashboard could become death by dashboard by freezing decsions. 
+- With natural langauge you could solve this.
+
+
+
+- 80 percent of unstructured data is not being used?
+- 
+
+Cortex search:
+- RAG find info llm needs
+    - High quality rag
+
+cortex is optimized for low latency. 
+  - cortex search takes hy brid search approach
+  - Key word = excat phrases, semantic = helps us disocover when doc answers question but with diffrent works.
+  - coretez search than re ranks the result. 
+  - user control
+      - only users that have access to not only the srevice but the data
+      - users must be granted exlpicit access.
+  - target lag, allows us to control freshness of cortex service.
+      - no old table
+      - we need a fresh search!
+task
+  - parse doc
+  - extract full text and table, maintain doc struct, support lnagayges, accurate. Lay ON, Lay OFF - choose layout ON to keep structure of doc
+
+  - split text, split long documents, preserve document structure, experiment with multiple chunking strategies.  Overlap, allows chunks to retain some infor of the next chunck.
+
+- you pay based on the size of your data, and meter by the second. 
+    - add or change documents more cost
+- 
+
+LOADING unstructured data.
+
+- text splitting !
+
+- chunck size determined on experimentation. Overlap to ensure each chunck has context about previous
+
+
+READINGS
+Parse Document: 
+https://docs.snowflake.com/en/sql-reference/functions/parse_document-snowflake-cortex
+
+Split Text recursive character:
+https://docs.snowflake.com/sql-reference/functions/split_text_recursive_character-snowflake-cortex
+
+- @instrument() 
+  - 
+
+- Complex
+  - 
+- How to measure if RAG is running well???????
+        - How to measure success?
+  - 1 register
+
+RAG TRIAD = QUERY -> (context relevance : is the retrieved context relevant to the query) -> context -> (Groundedness : is the response supported by the context) -> Response -> (Answer Relevance: is the answer relevant to the query? ) -> query
+
+- LMS JUDGE
+    - pass text and provide grading criteria
+    - We can bench mark llm judge against human evaluation
+
+READ:
+
+ Dive deep into the inner workings of RAG Triad LLM Judge evaluators including prompts and benchmark results.
+https://www.snowflake.com/en/engineering-blog/benchmarking-LLM-as-a-judge-RAG-triad-metrics/
+
+ Learn more about how LLM judges can be benchmarked and optimized against human evaluations.
+https://www.snowflake.com/en/engineering-blog/eval-guided-optimization-llm-judges-rag-triad/
+
+- Use STREAMS to watch for changes in stage - as new docs come in 
+  - set task
+   - then complete steps in tasks 
+          - make sure to resume the task, when created task start as susspended
 
